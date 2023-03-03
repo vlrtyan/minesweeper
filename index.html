@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- вставить иконку -->
+    <link rel="icon" href="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./pages/index.css">
+    <title>Сапёр</title>
+</head>
+
+<body>
+    <section class="board">
+        <div class="board__header">
+            <ul class="board__counter timer">
+                <li class="board__counter-number timer_type_hundreds"></li>
+                <li class="board__counter-number timer_type_tens"></li>
+                <li class="board__counter-number timer_type_ones"></li>
+            </ul>
+            <button class="board__button" type="button"></button>
+            <ul class="board__counter stopwatch">
+                <li class="board__counter-number stopwatch_type_hundreds"></li>
+                <li class="board__counter-number stopwatch_type_tens"></li>
+                <li class="board__counter-number stopwatch_type_ones"></li>
+            </ul>
+        </div>
+        <div class="board__game"></div>
+    </section>
+    
+    <template class="template" id="squareTemplate">
+        <button class="square"></button>
+    </template>
+
+
+
+    <script type="text/javascript" src="./pages/index.js"></script>
+</body>
+
+</html>
