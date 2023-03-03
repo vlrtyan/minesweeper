@@ -72,6 +72,12 @@ function setEventListeners(square) {
   square.addEventListener("mousedown", handleMouseDown);
   square.addEventListener("click", handleClick);
 }
+function removeEventListeners(square) {
+  square.removeEventListener("contextmenu", handleRightClick);
+  square.removeEventListener("mousedown", handleMouseDown);
+  square.removeEventListener("click", handleClick);
+  square.classList.add("square_type_disabled");
+}
 //генерация мин
 function getRandomMines(firstClickCoordinates) {
   while (minesCoordinates.length != minesNumber) {
@@ -169,7 +175,7 @@ function setTime(type, number) {
   }
 }
 function handleEmojiButtonClick() {
-  config.emojiButton.className = "board__button";
+  config.emojiButton.className = "board__button board__button_type_smiling";
   restartGame();
 }
 function getNumberOfMinesAround(rowIndex, columnIndex) {
@@ -189,6 +195,7 @@ function getNumberOfMinesAround(rowIndex, columnIndex) {
   }
   clickedSquares += 1;
   square.classList.add("square_type_empty");
+  removeEventListeners(square);
   //3 верхние клетки
   minesCount += isSquareMined(rowIndex - 1, columnIndex - 1);
   minesCount += isSquareMined(rowIndex - 1, columnIndex);
@@ -246,10 +253,7 @@ function revealMines() {
 }
 function stopGame() {
   document.querySelectorAll(".square").forEach((square) => {
-    square.removeEventListener("contextmenu", handleRightClick);
-    square.removeEventListener("mousedown", handleMouseDown);
-    square.removeEventListener("click", handleClick);
-    square.classList.add("square_type_disabled");
+    removeEventListeners(square);
   });
   stopTime();
 }
