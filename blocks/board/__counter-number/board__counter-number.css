@@ -1,0 +1,7 @@
+.board__counter-number {
+    width: 17px;
+    height: 30px;
+    background-image: url(../../../images/sprites/counter/counter-0.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}

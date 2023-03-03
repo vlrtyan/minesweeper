@@ -1,0 +1,12 @@
+.square {
+    width: 24px;
+    height: 24px;
+    border: none;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    background-image: url(../../images/sprites/square.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+}

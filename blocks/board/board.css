@@ -1,0 +1,9 @@
+.board {
+    width: 390px;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-shadow: inset -3px -3px 0px #7B787B, inset 3px 3px 0px white;
+}

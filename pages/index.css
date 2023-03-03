@@ -1,184 +1,38 @@
-body {
-    margin: auto;
-    background-color: #D8D8D8;
-    height: 100vh;
-}
+@import url(../vendor/normalize.css);
 
-.board {
-    width: 384px;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+@import url(../blocks/board/board.css);
+@import url(../blocks/board/__header/board__header.css);
+@import url(../blocks/board/__counter/board__counter.css);
+@import url(../blocks/board/__counter-number/board__counter-number.css);
+@import url(../blocks/board/__button/board__button.css);
+@import url(../blocks/board/__button/_type/_surprised/board__button_type_surprised.css);
+@import url(../blocks/board/__button/_type/_sad/board__button_type_sad.css);
+@import url(../blocks/board/__button/_type/_sunglasses/board__button_type_sunglasses.css);
+@import url(../blocks/board/__game/board__game.css);
 
-.board__header {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
+@import url(../blocks/square/square.css);
+@import url(../blocks/square/_type/_disabled/square_type_disabled.css);
+@import url(../blocks/square/_type/_flagged/square_type_flagged.css);
+@import url(../blocks/square/_type/_question/square_type_question.css);
+@import url(../blocks/square/_type/_mined/square_type_mined.css);
+@import url(../blocks/square/_type/_exploded/square_type_exploded.css);
+@import url(../blocks/square/_type/_empty/square_type_empty.css);
+@import url(../blocks/square/_type/_0/counter_type_0.css);
+@import url(../blocks/square/_type/_1/square_type_1.css);
+@import url(../blocks/square/_type/_2/square_type_2.css);
+@import url(../blocks/square/_type/_3/square_type_3.css);
+@import url(../blocks/square/_type/_4/square_type_4.css);
+@import url(../blocks/square/_type/_5/square_type_5.css);
+@import url(../blocks/square/_type/_6/square_type_6.css);
+@import url(../blocks/square/_type/_7/square_type_7.css);
+@import url(../blocks/square/_type/_8/square_type_8.css);
 
-.board__counter {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-.board__counter-number {
-    width: 17px;
-    height: 30px;
-    background-image: url(../images/sprites/counter/counter-0.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.board__button {
-    width: 40px;
-    height: 40px;
-    border: none;
-    padding: 0;
-    margin: 0;
-    background-color: transparent;
-    background-image: url(../images/sprites/button/button-smiling.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    cursor: pointer;
-}
-
-.board__button_type_surprised {
-    background-image: url(../images/sprites/button/button-surprised.png);
-}
-
-.board__button_type_sad {
-    background-image: url(../images/sprites/button/button-sad.png);
-}
-
-.board__button_type_sunglasses {
-    background-image: url(../images/sprites/button/button-sunglasses.png);
-}
-
-.board__game {
-    width: 100%;
-    height: 384px;
-    display: flex;
-    gap: 0;
-    flex-wrap: wrap;
-}
-
-.square {
-    width: 24px;
-    height: 24px;
-    border: none;
-    padding: 0;
-    margin: 0;
-    background-color: transparent;
-    background-image: url(../images/sprites/square.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    cursor: pointer;
-}
-
-.square_type_disabled {
-    cursor: auto;
-}
-
-.square_type_flagged {
-    background-image: url(../images/sprites/square-flagged.png);
-}
-
-.square_type_question {
-    background-image: url(../images/sprites/square-questioned.png);
-}
-
-.square_type_mined {
-    background-image: url(../images/sprites/square-mined.png);
-}
-
-.square_type_exploded {
-    background-image: url(../images/sprites/square-red.png);
-}
-
-.square_type_empty {
-    background-image: url(../images/sprites/square-empty.png);
-}
-
-.square_type_1 {
-    background-image: url(../images/sprites/mines-numbers/mines-number-1.png);
-}
-
-.square_type_2 {
-    background-image: url(../images/sprites/mines-numbers/mines-number-2.png);
-}
-
-.square_type_3 {
-    background-image: url(../images/sprites/mines-numbers/mines-number-3.png);
-}
-
-.square_type_4 {
-    background-image: url(../images/sprites/mines-numbers/mines-number-4.png);
-}
-
-.square_type_5 {
-    background-image: url(../images/sprites/mines-numbers/mines-number-5.png);
-}
-
-.square_type_6 {
-    background-image: url(../images/sprites/mines-numbers/mines-number-6.png);
-}
-
-.square_type_7 {
-    background-image: url(../images/sprites/mines-numbers/mines-number-7.png);
-}
-
-.square_type_8 {
-    background-image: url(../images/sprites/mines-numbers/mines-number-8.png);
-}
-
-
-.counter_type_0 {
-    background-image: url(../images/sprites/counter/counter-0.png);
-}
-
-.counter_type_1 {
-    background-image: url(../images/sprites/counter/counter-1.png);
-}
-
-.counter_type_2 {
-    background-image: url(../images/sprites/counter/counter-2.png);
-}
-
-.counter_type_3 {
-    background-image: url(../images/sprites/counter/counter-3.png);
-}
-
-.counter_type_4 {
-    background-image: url(../images/sprites/counter/counter-4.png);
-}
-
-.counter_type_5 {
-    background-image: url(../images/sprites/counter/counter-5.png);
-}
-
-.counter_type_6 {
-    background-image: url(../images/sprites/counter/counter-6.png);
-}
-
-.counter_type_7 {
-    background-image: url(../images/sprites/counter/counter-7.png);
-}
-
-.counter_type_8 {
-    background-image: url(../images/sprites/counter/counter-8.png);
-}
-
-.counter_type_9 {
-    background-image: url(../images/sprites/counter/counter-9.png);
-}
+@import url(../blocks/counter/_type/_1/counter_type_1.css);
+@import url(../blocks/counter/_type/_2/counter_type_2.css);
+@import url(../blocks/counter/_type/_3/counter_type_3.css);
+@import url(../blocks/counter/_type/_4/counter_type_4.css);
+@import url(../blocks/counter/_type/_5/counter_type_5.css);
+@import url(../blocks/counter/_type/_6/counter_type_6.css);
+@import url(../blocks/counter/_type/_7/counter_type_7.css);
+@import url(../blocks/counter/_type/_8/counter_type_8.css);
+@import url(../blocks/counter/_type/_9/counter_type_9.css);

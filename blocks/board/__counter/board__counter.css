@@ -1,0 +1,10 @@
+.board__counter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}

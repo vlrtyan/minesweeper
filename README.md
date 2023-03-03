@@ -8,4 +8,4 @@
 
 ## Для запуска нужно запустить в браузере `index.html`
 
-## [GitHub Pages](https://vlrtyan.github.io/minesweeper/)
+## [GitHub Pages](https://vlrtyan.github.io/minesweeper)
