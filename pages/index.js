@@ -2,11 +2,11 @@ const config = {
   emojiButton: document.querySelector(".board__button"),
   gameBoard: document.querySelector(".board__game"),
   flagButton: document.querySelector(".board__flag-button"),
-  //timer
-  timerHundreds: document.querySelector(".timer_type_hundreds"),
-  timerTens: document.querySelector(".timer_type_tens"),
-  timerOnes: document.querySelector(".timer_type_ones"),
-  //stopwatch
+  //счетчик мин
+  mineCounterHundreds: document.querySelector(".mine-counter_type_hundreds"),
+  mineCounterTens: document.querySelector(".mine-counter_type_tens"),
+  mineCounterOnes: document.querySelector(".mine-counter_type_ones"),
+  //секундомер
   stopwatchThousands: document.querySelector(".stopwatch_type_thousands"),
   stopwatchHundreds: document.querySelector(".stopwatch_type_hundreds"),
   stopwatchTens: document.querySelector(".stopwatch_type_tens"),
@@ -24,13 +24,14 @@ let minesCoordinates = [];
 let firstClick = true;
 let clickedSquares = 0;
 let stopwatch;
-let timer;
 let flagButtonActive = false;
 
 window.onload = () => {
   setBoard();
   config.emojiButton.addEventListener("click", handleEmojiButtonClick);
   config.flagButton.addEventListener("click", handleFlagButtonClick);
+  setMineCounter();
+  setTime(0);
 };
 
 //УТИЛИТЫ
@@ -68,8 +69,6 @@ function setBoard() {
     }
     board.push(row);
   }
-  //установить значение таймера
-  setTime("timer", maxTime);
 }
 function setEventListeners(square) {
   square.addEventListener("contextmenu", handleRightClick);
@@ -121,6 +120,12 @@ function handleClick(e) {
 function handleRightClick(e) {
   e.preventDefault();
   let square = this;
+  if (firstClick) {
+    //сгенирировать бомбы
+    getRandomMines(square.id);
+    startTime();
+    firstClick = false;
+  }
   switch (square.className) {
     case "square square_type_flagged":
       square.classList.replace("square_type_flagged", "square_type_question");
@@ -134,6 +139,7 @@ function handleRightClick(e) {
       square.removeEventListener("click", handleClick);
       break;
   }
+  setMineCounter();
 }
 function handleMouseDown(e) {
   //клик левой кнопкой мыши
@@ -148,44 +154,33 @@ function handleFlagButtonClick(e) {
   flagButtonActive = !flagButtonActive;
   e.target.classList.toggle("board__flag-button_active");
 }
-//запустить секундомер и таймер
+function setTime(number) {
+  let digits = splitNumber(number);
+  config.stopwatchThousands.className = `board__counter-number stopwatch_type_thousands counter_type_${digits[3]}`;
+  config.stopwatchHundreds.className = `board__counter-number stopwatch_type_hundreds counter_type_${digits[2]}`;
+  config.stopwatchTens.className = `board__counter-number stopwatch_type_tens counter_type_${digits[1]}`;
+  config.stopwatchOnes.className = `board__counter-number stopwatch_type_ones counter_type_${digits[0]}`;
+}
+//запустить секундомер
 function startTime() {
-  let timerCount = maxTime;
   let stopwatchCount = 0;
   stopwatch = setInterval(() => {
     stopwatchCount++;
-    setTime("stopwatch", stopwatchCount);
+    setTime(stopwatchCount);
     if (stopwatchCount > maxTime * 60) {
       lose();
     }
   }, 1000);
-  timer = setInterval(() => {
-    timerCount--;
-    if (timerCount === 0) {
-      lose();
-    }
-    setTime("timer", timerCount);
-  }, 1000 * 60);
 }
-//остановить секундомер и таймер
-function stopTime() {
-  clearInterval(timer);
-  clearInterval(stopwatch);
-}
-function setTime(type, number) {
-  let digits = splitNumber(number);
-  switch (type) {
-    case "timer":
-      config.timerHundreds.className = `board__counter-number timer_type_hundreds counter_type_${digits[2]}`;
-      config.timerTens.className = `board__counter-number timer_type_tens counter_type_${digits[1]}`;
-      config.timerOnes.className = `board__counter-number timer_type_ones counter_type_${digits[0]}`;
-      break;
-    case "stopwatch":
-      config.stopwatchThousands.className = `board__counter-number stopwatch_type_thousands counter_type_${digits[3]}`
-      config.stopwatchHundreds.className = `board__counter-number stopwatch_type_hundreds counter_type_${digits[2]}`;
-      config.stopwatchTens.className = `board__counter-number stopwatch_type_tens counter_type_${digits[1]}`;
-      config.stopwatchOnes.className = `board__counter-number stopwatch_type_ones counter_type_${digits[0]}`;
-      break;
+//счетчик мин
+function setMineCounter() {
+  let minesLeft =
+    minesNumber - document.querySelectorAll(".square_type_flagged").length;
+  if (minesLeft >= 0) {
+    let digits = splitNumber(minesLeft);
+    config.mineCounterHundreds.className = `board__counter-number mine-counter_type_hundreds counter_type_${digits[2]}`;
+    config.mineCounterTens.className = `board__counter-number mine-counter_type_tens counter_type_${digits[1]}`;
+    config.mineCounterOnes.className = `board__counter-number mine-counter_type_ones counter_type_${digits[0]}`;
   }
 }
 function handleEmojiButtonClick() {
@@ -208,7 +203,7 @@ function getNumberOfMinesAround(rowIndex, columnIndex) {
     return;
   }
   clickedSquares += 1;
-  square.classList.add("square_type_empty");
+  square.className = "square square_type_empty";
   removeEventListeners(square);
   //3 верхние клетки
   minesCount += isSquareMined(rowIndex - 1, columnIndex - 1);
@@ -237,6 +232,7 @@ function getNumberOfMinesAround(rowIndex, columnIndex) {
     getNumberOfMinesAround(rowIndex, columnIndex - 1);
     getNumberOfMinesAround(rowIndex, columnIndex + 1);
   }
+  setMineCounter();
   if (clickedSquares === rows * columns - minesNumber) {
     win();
   }
@@ -283,12 +279,12 @@ function revealMines(result) {
 }
 function lose() {
   revealMines("lose");
-  stopTime();
+  clearInterval(stopwatch);
   config.emojiButton.classList.add("board__button_type_sad");
 }
 function win() {
   revealMines("win");
-  stopTime();
+  clearInterval(stopwatch);
   config.emojiButton.classList.add("board__button_type_sunglasses");
 }
 function restartGame() {
@@ -299,7 +295,7 @@ function restartGame() {
     setEventListeners(i);
   });
   minesCoordinates = [];
-  stopTime();
-  setTime("stopwatch", 0);
-  setTime("timer", maxTime);
+  clearInterval(stopwatch);
+  setTime(0);
+  setMineCounter();
 }
