@@ -11,7 +11,6 @@ const config = {
   stopwatchTens: document.querySelector(".stopwatch_type_tens"),
   stopwatchOnes: document.querySelector(".stopwatch_type_ones"),
 };
-
 const leftButtonCode = 0;
 const rows = 16;
 const columns = 16;
@@ -45,8 +44,7 @@ function splitNumber(number) {
 function getRandomCoordinates() {
   const mineRow = Math.floor(Math.random() * rows);
   const mineColumn = Math.floor(Math.random() * columns);
-  const mineCoordinates = `${mineRow}-${mineColumn}`;
-  return mineCoordinates;
+  return `${mineRow}-${mineColumn}`;
 }
 
 //ЛОГИКА ИГРЫ
@@ -97,7 +95,7 @@ function handleClick(e) {
   if (firstClick) {
     //сгенирировать бомбы
     getRandomMines(square.id);
-    startTime();
+    startStopwatch();
     firstClick = false;
   }
   if (flagButtonActive) {
@@ -122,7 +120,7 @@ function handleRightClick(e) {
   if (firstClick) {
     //сгенирировать бомбы
     getRandomMines(square.id);
-    startTime();
+    startStopwatch();
     firstClick = false;
   }
   switch (square.className) {
@@ -149,6 +147,7 @@ function handleMouseDown(e) {
     });
   }
 }
+//кнопка для установки флажка в мобильной версии
 function handleFlagButtonClick(e) {
   flagButtonActive = !flagButtonActive;
   e.target.classList.toggle("board__flag-button_active");
@@ -160,7 +159,7 @@ function setTime(number) {
   config.stopwatchOnes.className = `board__counter-number stopwatch_type_ones counter_type_${digits[0]}`;
 }
 //запустить секундомер
-function startTime() {
+function startStopwatch() {
   let stopwatchCount = 0;
   stopwatch = setInterval(() => {
     stopwatchCount++;
