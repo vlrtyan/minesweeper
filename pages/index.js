@@ -104,6 +104,7 @@ function handleClick(e) {
   }
   if (flagButtonActive) {
     square.classList.toggle("square_type_flagged");
+    setMineCounter();
   } else {
     //клик левой кнопкой мыши
     if (e.button === leftButtonCode) {
