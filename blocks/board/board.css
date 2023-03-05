@@ -10,6 +10,7 @@
 
 @media screen and (max-width: 767px) {
     .board {
-        width: 310px;
+        width: 326px;
+        padding: 10px;
     }
 }
