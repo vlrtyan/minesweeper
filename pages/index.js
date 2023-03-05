@@ -7,6 +7,7 @@ const config = {
   timerTens: document.querySelector(".timer_type_tens"),
   timerOnes: document.querySelector(".timer_type_ones"),
   //stopwatch
+  stopwatchThousands: document.querySelector(".stopwatch_type_thousands"),
   stopwatchHundreds: document.querySelector(".stopwatch_type_hundreds"),
   stopwatchTens: document.querySelector(".stopwatch_type_tens"),
   stopwatchOnes: document.querySelector(".stopwatch_type_ones"),
@@ -180,6 +181,7 @@ function setTime(type, number) {
       config.timerOnes.className = `board__counter-number timer_type_ones counter_type_${digits[0]}`;
       break;
     case "stopwatch":
+      config.stopwatchThousands.className = `board__counter-number stopwatch_type_thousands counter_type_${digits[3]}`
       config.stopwatchHundreds.className = `board__counter-number stopwatch_type_hundreds counter_type_${digits[2]}`;
       config.stopwatchTens.className = `board__counter-number stopwatch_type_tens counter_type_${digits[1]}`;
       config.stopwatchOnes.className = `board__counter-number stopwatch_type_ones counter_type_${digits[0]}`;
