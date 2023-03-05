@@ -1,6 +1,7 @@
 const config = {
   emojiButton: document.querySelector(".board__button"),
   gameBoard: document.querySelector(".board__game"),
+  flagButton: document.querySelector(".board__flag-button"),
   //timer
   timerHundreds: document.querySelector(".timer_type_hundreds"),
   timerTens: document.querySelector(".timer_type_tens"),
@@ -23,10 +24,12 @@ let firstClick = true;
 let clickedSquares = 0;
 let stopwatch;
 let timer;
+let flagButtonActive = false;
 
 window.onload = () => {
   setBoard();
   config.emojiButton.addEventListener("click", handleEmojiButtonClick);
+  config.flagButton.addEventListener("click", handleFlagButtonClick);
 };
 
 //УТИЛИТЫ
@@ -99,14 +102,18 @@ function handleClick(e) {
     startTime();
     firstClick = false;
   }
-  //клик левой кнопкой мыши
-  if (e.button === leftButtonCode) {
-    //клик по мине
-    if (minesCoordinates.includes(square.id)) {
-      square.className = "square square_type_exploded";
-      lose();
-    } else {
-      getNumberOfMinesAround(Number(id[0]), Number(id[1]));
+  if (flagButtonActive) {
+    square.classList.toggle("square_type_flagged");
+  } else {
+    //клик левой кнопкой мыши
+    if (e.button === leftButtonCode) {
+      //клик по мине
+      if (minesCoordinates.includes(square.id)) {
+        square.className = "square square_type_exploded";
+        lose();
+      } else {
+        getNumberOfMinesAround(Number(id[0]), Number(id[1]));
+      }
     }
   }
 }
@@ -135,6 +142,10 @@ function handleMouseDown(e) {
       config.emojiButton.classList.remove("board__button_type_surprised");
     });
   }
+}
+function handleFlagButtonClick(e) {
+  flagButtonActive = !flagButtonActive;
+  e.target.classList.toggle("board__flag-button_active");
 }
 //запустить секундомер и таймер
 function startTime() {
