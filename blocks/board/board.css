@@ -7,3 +7,9 @@
     padding: 20px;
     box-shadow: inset -3px -3px 0px #7B787B, inset 3px 3px 0px white;
 }
+
+@media screen and (max-width: 767px) {
+    .board {
+        width: 262px;
+    }
+}
