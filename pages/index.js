@@ -7,14 +7,12 @@ const config = {
   mineCounterTens: document.querySelector(".mine-counter_type_tens"),
   mineCounterOnes: document.querySelector(".mine-counter_type_ones"),
   //секундомер
-  stopwatchThousands: document.querySelector(".stopwatch_type_thousands"),
   stopwatchHundreds: document.querySelector(".stopwatch_type_hundreds"),
   stopwatchTens: document.querySelector(".stopwatch_type_tens"),
   stopwatchOnes: document.querySelector(".stopwatch_type_ones"),
 };
 
 const leftButtonCode = 0;
-const maxTime = 40; //минут
 const rows = 16;
 const columns = 16;
 const minesNumber = 40;
@@ -157,7 +155,6 @@ function handleFlagButtonClick(e) {
 }
 function setTime(number) {
   let digits = splitNumber(number);
-  config.stopwatchThousands.className = `board__counter-number stopwatch_type_thousands counter_type_${digits[3]}`;
   config.stopwatchHundreds.className = `board__counter-number stopwatch_type_hundreds counter_type_${digits[2]}`;
   config.stopwatchTens.className = `board__counter-number stopwatch_type_tens counter_type_${digits[1]}`;
   config.stopwatchOnes.className = `board__counter-number stopwatch_type_ones counter_type_${digits[0]}`;
@@ -167,9 +164,8 @@ function startTime() {
   let stopwatchCount = 0;
   stopwatch = setInterval(() => {
     stopwatchCount++;
-    setTime(stopwatchCount);
-    if (stopwatchCount > maxTime * 60) {
-      lose();
+    if (stopwatchCount < 1000) {
+      setTime(stopwatchCount);
     }
   }, 1000);
 }
