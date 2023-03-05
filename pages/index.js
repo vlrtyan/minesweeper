@@ -104,7 +104,6 @@ function handleClick(e) {
     //клик по мине
     if (minesCoordinates.includes(square.id)) {
       square.className = "square square_type_exploded";
-      revealMines();
       lose();
     } else {
       getNumberOfMinesAround(Number(id[0]), Number(id[1]));
@@ -120,9 +119,11 @@ function handleRightClick(e) {
       break;
     case "square square_type_question":
       square.classList.remove("square_type_question");
+      square.addEventListener("click", handleClick);
       break;
     default:
       square.classList.add("square_type_flagged");
+      square.removeEventListener("click", handleClick);
       break;
   }
 }
@@ -240,29 +241,41 @@ function isSquareMined(rowIndex, columnIndex) {
     return minesCoordinates.includes(`${rowIndex}-${columnIndex}`) ? 1 : 0;
   }
 }
-function revealMines() {
+function revealMines(result) {
   for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
     for (let columnIndex = 0; columnIndex < columns; columnIndex++) {
       const square = board[rowIndex][columnIndex];
+      removeEventListeners(square);
       //показать мины
       if (minesCoordinates.includes(square.id)) {
-        square.classList.add("square_type_mined");
+        //если клетка заминирована, но нет флажка
+        if (!square.classList.contains("square_type_flagged")) {
+          switch (result) {
+            case "win":
+              square.classList.add("square_type_flagged"); //флаг в случае победы
+              break;
+            case "lose":
+              square.classList.add("square_type_mined"); //мина в случае проигрыша
+              break;
+          }
+        }
+      } else {
+        //если клетка не заминирована, но флажок есть
+        if (square.classList.contains("square_type_flagged")) {
+          square.classList.add("square_type_mistake");
+        }
       }
     }
   }
 }
-function stopGame() {
-  document.querySelectorAll(".square").forEach((square) => {
-    removeEventListeners(square);
-  });
-  stopTime();
-}
 function lose() {
-  stopGame();
+  revealMines("lose");
+  stopTime();
   config.emojiButton.classList.add("board__button_type_sad");
 }
 function win() {
-  stopGame();
+  revealMines("win");
+  stopTime();
   config.emojiButton.classList.add("board__button_type_sunglasses");
 }
 function restartGame() {

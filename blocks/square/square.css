@@ -10,3 +10,7 @@
     background-size: cover;
     cursor: pointer;
 }
+
+.square:disabled {
+    cursor: auto;
+}

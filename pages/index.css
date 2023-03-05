@@ -13,6 +13,7 @@
 @import url(../blocks/square/square.css);
 @import url(../blocks/square/_type/_disabled/square_type_disabled.css);
 @import url(../blocks/square/_type/_flagged/square_type_flagged.css);
+@import url(../blocks/square/_type/_mistake/square_type_mistake.css);
 @import url(../blocks/square/_type/_question/square_type_question.css);
 @import url(../blocks/square/_type/_mined/square_type_mined.css);
 @import url(../blocks/square/_type/_exploded/square_type_exploded.css);
